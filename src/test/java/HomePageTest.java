@@ -2,6 +2,7 @@ import org.apache.commons.mail.*;
 import org.example.pages.HomePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.testng.annotations.*;
 
@@ -13,9 +14,11 @@ import java.util.concurrent.TimeUnit;
 
 public class HomePageTest {
 //    WebDriver driver = new HtmlUnitDriver();
-    WebDriver driver = new ChromeDriver();
+//    WebDriver driver = new ChromeDriver();
+    WebDriver driver;
     String bookNames[] = {"'Ware Hawk", "100 malicious little mysteries", "101 family vacation games", "Your father forever"};
-    HomePage objHomePage = new HomePage(driver);
+//    HomePage objHomePage = new HomePage(driver);
+    HomePage objHomePage;
     Properties prop = new Properties();
     FileInputStream fis;
     {
@@ -28,6 +31,10 @@ public class HomePageTest {
     }
     @BeforeSuite
     public void setUpProject() throws IOException {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--headless", "--disable-gpu");
+        driver = new ChromeDriver(options);
+        objHomePage = new HomePage(driver);
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(2000, TimeUnit.MILLISECONDS);
         prop.load(fis);
@@ -104,23 +111,23 @@ public class HomePageTest {
     public void closeBrowser() throws Exception {
         driver.close();
         driver.quit();
-        Thread.sleep(10000);
-        EmailAttachment attachment = new EmailAttachment();
-        attachment.setPath("test-output/emailable-report.html");
-        attachment.setDisposition(EmailAttachment.ATTACHMENT);
-        attachment.setDescription("Report Selenium - emailable-report.html");
-        attachment.setName("Report Selenium - emailable-report.html");
-        MultiPartEmail email = new MultiPartEmail();
-        email.setHostName("smtp.googlemail.com");
-        email.setSmtpPort (465);
-        prop.load(fis);
-        email.setAuthenticator(new DefaultAuthenticator(prop.getProperty("userName"), prop.getProperty("password")));
-        email.setSSLOnConnect(true);
-        email.setFrom(prop.getProperty("userName"));
-        email.setSubject("Good job buddy: TestMail");
-        email.setMsg("This is a test mail from selenium:bookStoreDemo testcases:- Your testcases are successfully fine until now");
-        email.addTo(prop.getProperty("userName"));
-        email.attach(attachment);
-        email.send();
+//        Thread.sleep(10000);
+//        EmailAttachment attachment = new EmailAttachment();
+//        attachment.setPath("test-output/emailable-report.html");
+//        attachment.setDisposition(EmailAttachment.ATTACHMENT);
+//        attachment.setDescription("Report Selenium - emailable-report.html");
+//        attachment.setName("Report Selenium - emailable-report.html");
+//        MultiPartEmail email = new MultiPartEmail();
+//        email.setHostName("smtp.googlemail.com");
+//        email.setSmtpPort (465);
+//        prop.load(fis);
+//        email.setAuthenticator(new DefaultAuthenticator(prop.getProperty("userName"), prop.getProperty("password")));
+//        email.setSSLOnConnect(true);
+//        email.setFrom(prop.getProperty("userName"));
+//        email.setSubject("Good job buddy: TestMail");
+//        email.setMsg("This is a test mail from selenium:bookStoreDemo testcases:- Your testcases are successfully fine until now");
+//        email.addTo(prop.getProperty("userName"));
+//        email.attach(attachment);
+//        email.send();
     }
 }
