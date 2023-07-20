@@ -1,0 +1,36 @@
+name: Selenium Bookstore Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+      types: [opened, closed]
+      branches:
+        - main
+
+jobs:
+  selenium:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+
+      - name: Build with Maven
+        run: mvn clean package
+
+      - name: Run Selenium tests
+        run: mvn clean test
+
+      - name: Archive test results
+        uses: actions/upload-artifact@v2
+        with:
+          name: test-results
+          path: test-output
+
