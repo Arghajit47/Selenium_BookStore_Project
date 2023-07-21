@@ -42,3 +42,4 @@ allure-results
 target
 test-output
 .idea
+.allure
