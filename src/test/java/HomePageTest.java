@@ -13,18 +13,15 @@ import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class HomePageTest {
-//    WebDriver driver = new HtmlUnitDriver();
-//    WebDriver driver = new ChromeDriver();
     WebDriver driver;
     String bookNames[] = {"'Ware Hawk", "100 malicious little mysteries", "101 family vacation games", "Your father forever"};
-//    HomePage objHomePage = new HomePage(driver);
     HomePage objHomePage;
     Properties prop = new Properties();
     FileInputStream fis;
     {
         try {
             String currentDirectory = System.getProperty("user.dir");
-            fis = new FileInputStream(currentDirectory + "/src/main/resources/Data.properties");
+            fis = new FileInputStream(currentDirectory + "/src/main/resources/seleniumBookStore.properties");
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
