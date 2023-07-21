@@ -36,8 +36,6 @@ jobs:
       - name: Run Selenium tests
         run: mvn clean test
 
-      - name: Generate Allure Reports
-        run: allure generate
 
       - name: Archive test results
         uses: actions/upload-artifact@v2
@@ -45,5 +43,5 @@ jobs:
           name: test-results
           path: |
             test-output
-            allure-report
+            target/surefire-reports
 
